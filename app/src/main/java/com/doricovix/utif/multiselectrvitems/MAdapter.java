@@ -54,14 +54,8 @@ public class MAdapter extends RecyclerView.Adapter<MAdapter.ViewHolder> {
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (selectedItems.get(getAdapterPosition(), false)){
-                        selectedItems.delete(getAdapterPosition());
-                        v.setSelected(false);
-                    }else {
-                        selectedItems.put(getAdapterPosition(), true);
-                        v.setSelected(true);
-                    }
-                    //mClickListener.onItemLongClick(model, getAdapterPosition());
+                    mClickListener.onItemLongClick(v, model, getAdapterPosition(), selectedItems);
+
                     return true;
                 }
             });
@@ -89,6 +83,6 @@ public class MAdapter extends RecyclerView.Adapter<MAdapter.ViewHolder> {
 
     public interface ClickListener{
         void onItemClick(Model itemModel, int position);
-        void onItemLongClick(Model itemModel, int position);
+        void onItemLongClick(View v, Model itemModel, int position, SparseBooleanArray selectedItems);
     }
 }

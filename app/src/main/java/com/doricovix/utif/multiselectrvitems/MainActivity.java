@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,14 +32,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onItemLongClick(Model itemModel, int position) {
-                /*if (selectedItems.get(getAdapterPosition(), false)){
-                    selectedItems.delete(getAdapterPosition());
+            public void onItemLongClick(View v, Model itemModel, int position, SparseBooleanArray selectedItems) {
+                if (selectedItems.get(position, false)){
+                    selectedItems.delete(position);
                     v.setSelected(false);
                 }else {
-                    selectedItems.put(getAdapterPosition(), true);
+                    selectedItems.put(position, true);
                     v.setSelected(true);
-                }*/
+                }
             }
         });
 
@@ -51,5 +55,21 @@ public class MainActivity extends AppCompatActivity {
         temp.add(new Model("Judul tiga", "Deskripsi tiga saja."));
         temp.add(new Model("Judul empat", "Deskripsi empat saja."));
         return temp;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_more, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_remove:
+                Toast.makeText(MainActivity.this, "More clicked", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
     }
 }
